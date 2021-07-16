@@ -28,4 +28,4 @@ builder:
       afterTask: webide-extension-task-lint
       configuration:
         nameSpace: zpickr
->>>>>>> 1528a70 INC0186364: picking progress report
+
