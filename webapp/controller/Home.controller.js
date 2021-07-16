@@ -23,13 +23,12 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/core/util/Export", "sap/ui/
 			} catch (e) {
 				console.log("Caught")
 			}
-
 			var r = this.getView();
-			var l = this.getOwnerComponent().getModel("wareHouseNo").sServiceUrl;
-			var s = "/ZEWM_CDS_WHNO?$filter=spras eq 'EN'";
-			l = l + s;
+			var n = this.getOwnerComponent().getModel("wareHouseNo").sServiceUrl;
+			var l = "/ZEWM_CDS_WHNO?$filter=spras eq 'EN'";
+			n = n + l;
 			$.ajax({
-				url: l,
+				url: n,
 				type: "GET",
 				datatype: "json",
 				contentType: "application/json",
@@ -46,7 +45,6 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/core/util/Export", "sap/ui/
 				},
 				error: function (e) {}
 			});
-
 			e.read("/VariantPickingSet", {
 				urlParameters: {
 					$filter: "UserId eq '" + i + "'"
@@ -104,8 +102,8 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/core/util/Export", "sap/ui/
 							var a = this.getOwnerComponent().getModel("PutawayModel");
 							var _ = [];
 							var p = [];
-							var g = [];
 							var M = [];
+							var g = [];
 							a.read("/ZEWM_CDS_PICK_PROG", {
 								success: $.proxy(function (e) {
 									var t = e.results;
@@ -118,17 +116,16 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/core/util/Export", "sap/ui/
 										}
 									}
 									for (var i = 0; i < _.length; i++) {
-										g.push({
+										M.push({
 											yard: _[i]
 										})
 									}
-									for (var n = 0; n < p.length; n++) {
-										M.push({
-											route_id: p[n]
+									for (var r = 0; r < p.length; r++) {
+										g.push({
+											route_id: p[r]
 										})
 									}
-
-									this.getOwnerComponent().getModel("LocalDataModel").setProperty("/RouteData", M)
+									this.getOwnerComponent().getModel("LocalDataModel").setProperty("/RouteData", g)
 								}, this),
 								error: function () {}
 							});
@@ -159,30 +156,30 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/core/util/Export", "sap/ui/
 			}
 			var p = this.getView().byId("vm");
 			if (p.oSelectedItem) {
-				var g = p.oSelectedItem.mProperties.text;
-				console.log(g);
+				var M = p.oSelectedItem.mProperties.text;
+				console.log(M);
 				if (p.oDefault.mProperties.selected) {
 					a = "X"
 				} else {
 					a = ""
 				}
 			}
-			var M = this.getOwnerComponent().getModel("VarientModel");
+			var g = this.getOwnerComponent().getModel("VarientModel");
 			var u = {
 				Whno: e,
 				Route: t,
 				HideChkbox: _,
 				UserId: i,
-				VariantName: g,
+				VariantName: M,
 				DefaultVariantKey: a,
 				TruckDepartureTime: r
 			};
-			M.create("/VariantPickingSet", u, {
+			g.create("/VariantPickingSet", u, {
 				success: $.proxy(function (e, t) {
 					console.log(e, t)
 				}, this)
 			});
-			M.read("/VariantPickingSet", {
+			g.read("/VariantPickingSet", {
 				urlParameters: {
 					$filter: "UserId eq '" + i + "'"
 				},
@@ -250,76 +247,50 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/core/util/Export", "sap/ui/
 			var a = i.parse(s);
 			var _ = i.format(a);
 			var p = _.substr(0, 8);
-			var g = p + 235900;
-			var M = this.getView().byId("idCheckBoxMarked").getSelected();
+			var M = p + 235900;
+			var g = this.getView().byId("idCheckBoxMarked").getSelected();
 			var u;
-			if (!M) {
-				M = false
+			if (!g) {
+				g = false
 			}
 			if (!s) {
 				s = ""
 			}
-			if (!M && s == "") {
+			if (!g && s == "") {
 				sap.m.MessageToast.show("Enter Date or mark Hide TUs checkbox");
 				return
 			}
-			var d="";
-			/* else if (n != "" && s == "" && l == "") {
-				this.getView().byId("idPickingStrip").setProperty("visible", false);
-				d = "yard eq '" + n + "'"
-			} else if (n != "" && s != "" && l == "") {
-				this.getView().byId("idPickingStrip").setProperty("visible", false);
-				d = "yard eq '" + n + "'and (Truck_Departure_Time ge'" + _ + "'and Truck_Departure_Time le '" + g + "')"
-			} else if (n != "" && l != "" && s == "") {
-				this.getView().byId("idPickingStrip").setProperty("visible", false);
-				d = "yard eq '" + n + "'and route_id eq '" + l + "'"
-			}*/
-			if (n == "" && s == "") {
-				this.getView().byId("idPickingStrip").setProperty("visible", true);
-				this.getView().byId("idPickingStrip").setText("Please Select Warehouse Number and Truck Departure Date");
-				this.getView().byId("idPickingStrip").setType("Error");
-				t.setValueState(sap.ui.core.ValueState.Error);
-				this.getView().byId("idCompletionTime").setValueState(sap.ui.core.ValueState.Error);
-				r = [];
-				this.getView().getModel("multiHeaderConfig").setProperty("/rowCount", 0)
-			}
-			else if (n == "" && s != "") {
+			var d;
+			if (n == "") {
 				this.getView().byId("idPickingStrip").setProperty("visible", true);
 				this.getView().byId("idPickingStrip").setText("Please Select Warehouse Number");
 				this.getView().byId("idPickingStrip").setType("Error");
 				t.setValueState(sap.ui.core.ValueState.Error);
 				r = [];
 				this.getView().getModel("multiHeaderConfig").setProperty("/rowCount", 0)
-			} else if (n != "" && s == "") {
-				this.getView().byId("idPickingStrip").setProperty("visible", true);
-				this.getView().byId("idPickingStrip").setText("Please Select Truck Departure Date");
-				this.getView().byId("idPickingStrip").setType("Error");
-				this.getView().byId("idCompletionTime").setValueState(sap.ui.core.ValueState.Error);
-				r = [];
-				this.getView().getModel("multiHeaderConfig").setProperty("/rowCount", 0)
+			} else if (n != "" && s == "" && l == "") {
+				this.getView().byId("idPickingStrip").setProperty("visible", false);
+				d = "yard eq '" + n + "'"
 			} else if (n != "" && s != "" && l == "") {
-				t.setValueState(sap.ui.core.ValueState.None);
-				this.getView().byId("idCompletionTime").setValueState(sap.ui.core.ValueState.None);
 				this.getView().byId("idPickingStrip").setProperty("visible", false);
-				d = "yard eq '" + n + "'and (Truck_Departure_Time ge'" + _ + "'and Truck_Departure_Time le '" + g + "')"
+				d = "yard eq '" + n + "'and (Truck_Departure_Time ge'" + _ + "'and Truck_Departure_Time le '" + M + "')"
+			} else if (n != "" && l != "" && s == "") {
+				this.getView().byId("idPickingStrip").setProperty("visible", false);
+				d = "yard eq '" + n + "'and route_id eq '" + l + "'"
 			} else if (n != "" && l != "" && s != "") {
-				t.setValueState(sap.ui.core.ValueState.None);
-				this.getView().byId("idCompletionTime").setValueState(sap.ui.core.ValueState.None);
 				this.getView().byId("idPickingStrip").setProperty("visible", false);
-				d = "yard eq '" + n + "'and route_id eq '" + l + "'and (Truck_Departure_Time ge'" + _ + "'and Truck_Departure_Time le '" + g +
+				d = "yard eq '" + n + "'and route_id eq '" + l + "'and (Truck_Departure_Time ge'" + _ + "'and Truck_Departure_Time le '" + M +
 					"')"
 			} else {
 				r = [];
 				this.getView().getModel("multiHeaderConfig").setProperty("/rowCount", 0)
 			}
 			var m;
-			if (!M) {
+			if (!g) {
 				m = d
 			} else {
 				m = d + "and Goods_Issued eq 'X'"
 			}
-			if(m != "")
-			{
 			o.read("/ZEWM_CDS_PICK_PROG", {
 				urlParameters: {
 					$filter: m
@@ -762,8 +733,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/core/util/Export", "sap/ui/
 				error: $.proxy(function () {
 					this.getOwnerComponent().getModel("LocalDataModel").setProperty("/enableBusy", false)
 				}, this)
-			});
-			}
+			})
 		},
 		_fnTotalCount: function (e) {
 			var t = "";
@@ -836,304 +806,301 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/core/util/Export", "sap/ui/
 					path: "/EWM_CDS_PICK_PROG"
 				},
 				columns: [{
-						name: "TU",
-						template: {
-							content: "{tu_num_ext}"
-						}
-					}, {
-						name: "Truck Departure Time",
-						template: {
-							content: "{path:'Truck_Departure_Time', type: 'sap.ui.model.type.DateTime', formatOptions: { source: { pattern: 'yyyy-MM-dd HH:mm:ss X' }, pattern: 'yyyy-MM-dd HH:mm:ss' }}"
-						}
-					}, {
-						name: "Route Name",
-						template: {
-							content: "{route_id}"
-						}
-					}, {
-						name: "Route Description",
-						template: {
-							content: "{bezei}"
-						}
-					}, {
-						name: "Target Completion Time",
-						template: {
-							content: "{path:'created_time', type: 'sap.ui.model.type.DateTime', formatOptions: { source: { pattern: 'yyyy-MM-dd HH:mm:ss X' }, pattern: 'yyyy-MM-dd HH:mm:ss' }}"
-						}
-					}, {
-						name: "Cage Bulk CB10 (Lines- " + t.getView().getModel("multiHeaderConfig").getProperty("/CB10_Total") + ")",
-						template: {
-							content: "{CB10_Total}"
-						}
-					}, {
-						name: "Cage Bulk CB10 (Percent Complete)",
-						template: {
-							content: "{path: ' CB10_Complete_percent', type: 'sap.ui.model.type.String'}"
-						}
-					}, {
-						name: "Cage Bulk CB10 (Min - " + t.getView().getModel("multiHeaderConfig").getProperty("/CB10_Min") + ")",
-						template: {
-							content: "{CB10_Min}"
-						}
-					}, {
-						name: "Dangerous Goods DG10 (Line - " + t.getView().getModel("multiHeaderConfig").getProperty("/DG10_Total") + ") ",
-						template: {
-							content: "{DG10_Total}"
-						}
-					}, {
-						name: "Dangerous Goods DG10 (Percent Complete)",
-						template: {
-							content: "{DG10_Complete_percent}"
-						}
-					}, {
-						name: "Dangerous Goods DG10 (Min - " + t.getView().getModel("multiHeaderConfig").getProperty("/DG10_Min") + ")",
-						template: {
-							content: "{DG10_Min}"
-						}
-					}, {
-						name: "Loose Bulk LB10 (Lines - " + t.getView().getModel("multiHeaderConfig").getProperty("/LB10_Total") + ")",
-						template: {
-							content: "{LB10_Total}"
-						}
-					}, {
-						name: "Loose Bulk LB10 (Percent Complete)",
-						template: {
-							content: "{LB10_Complete_percent}"
-						}
-					}, {
-						name: "Loose Bulk LB10 (Min - " + t.getView().getModel("multiHeaderConfig").getProperty("/LB10_Min") + ")",
-						template: {
-							content: "{LB10_Min}"
-						}
-					}, {
-						name: "Lower Mezzanine LM10 (Lines - " + t.getView().getModel("multiHeaderConfig").getProperty("/LM10_Total") + ")",
-						template: {
-							content: "{LM10_Total}"
-						}
-					}, {
-						name: "Lower Mezzanine LM10 (Percent Complete) ",
-						template: {
-							content: "{LM10_Complete_percent}"
-						}
-					}, {
-						name: "Lower Mezzanine LM10 (Min - " + t.getView().getModel("multiHeaderConfig").getProperty("/LM10_Min") + ")",
-						template: {
-							content: "{LM10_Min}"
-						}
-					}, {
-						name: "Reserve Storage RE10 (Lines - " + t.getView().getModel("multiHeaderConfig").getProperty("/RE10_Total") + ")",
-						template: {
-							content: "{RE10_Total}"
-						}
-					}, {
-						name: "Reserve Storage RE10 (Percent Complete)",
-						template: {
-							content: "{RE10_Complete_percent}"
-						}
-					}, {
-						name: "Reserve Storage RE10 (Min - " + t.getView().getModel("multiHeaderConfig").getProperty("/RE10_Min") + ")",
-						template: {
-							content: "{RE10_Min}"
-						}
-					}, {
-						name: "LM Reserve RELM (Lines - " + t.getView().getModel("multiHeaderConfig").getProperty("/RELM_Total") + ")",
-						template: {
-							content: "{RELM_Total}"
-						}
-					}, {
-						name: "LM Reserve RELM (Percent Complete)",
-						template: {
-							content: "{RELM_Complete_percent}"
-						}
-					}, {
-						name: "LM Reserve RELM (Min - " + t.getView().getModel("multiHeaderConfig").getProperty("/RELM_Min") + ")",
-						template: {
-							content: "{RELM_Min}"
-						}
-					}, {
-						name: "UM Reserve REUM (Lines - " + t.getView().getModel("multiHeaderConfig").getProperty("/REUM_Total") + ")",
-						template: {
-							content: "{REUM_Total}"
-						}
-					}, {
-						name: "UM Reserve REUM (Percent Complete)",
-						template: {
-							content: "{REUM_Complete_percent}"
-						}
-					}, {
-						name: "UM Reserve REUM  (Min - " + t.getView().getModel("multiHeaderConfig").getProperty("/REUM_Min") + ")",
-						template: {
-							content: "{REUM_Min}"
-						}
-					}, {
-						name: "Upper Mezzanine UM10 (Lines - " + t.getView().getModel("multiHeaderConfig").getProperty("/UM10_Total") + ")",
-						template: {
-							content: "{UM10_Total}"
-						}
-					}, {
-						name: "Upper Mezzanine UM10 (Percent Complete)",
-						template: {
-							content: "{UM10_Complete_percent}"
-						}
-					}, {
-						name: "Upper Mezzanine UM10 (Min - " + t.getView().getModel("multiHeaderConfig").getProperty("/UM10_Min") + ")",
-						template: {
-							content: "{UM10_Min}"
-						}
-					}, {
-						name: "Fast Rack PDC1 FR10 (Lines - " + t.getView().getModel("multiHeaderConfig").getProperty("/FR10_Total") + ")",
-						template: {
-							content: "{FR10_Total}"
-						}
-					}, {
-						name: "Fast Rack PDC1 FR10 (Percent Complete)",
-						template: {
-							content: "{FR10_Complete_percent}"
-						}
-					}, {
-						name: "Fast Rack PDC1 FR10 (Min - " + t.getView().getModel("multiHeaderConfig").getProperty("/FR10_Min") + ")",
-						template: {
-							content: "{FR10_Min}"
-						}
-					}, {
-						name: "Loose Bulk PDC2 LB20 (Lines - " + t.getView().getModel("multiHeaderConfig").getProperty("/LB20_Total") + ")",
-						template: {
-							content: "{LB20_Total}"
-						}
-					}, {
-						name: "Loose Bulk PDC2 LB20 (Percent Complete)",
-						template: {
-							content: "{LB20_Complete_percent}"
-						}
-					}, {
-						name: "Loose Bulk PDC2 LB20 (Min - " + t.getView().getModel("multiHeaderConfig").getProperty("/LB20_Min") + ")",
-						template: {
-							content: "{LB20_Min}"
-						}
-					}, {
-						name: "Lower Mezzanine LMHI (Lines - " + t.getView().getModel("multiHeaderConfig").getProperty("/LMHI_Total") + ")",
-						template: {
-							content: "{LMHI_Total}"
-						}
-					}, {
-						name: "Lower Mezzanine LMHI (Percent Complete)",
-						template: {
-							content: "{LMHI_Complete_percent}"
-						}
-					}, {
-						name: "Lower Mezzanine LMHI (Min - " + t.getView().getModel("multiHeaderConfig").getProperty("/LMHI_Min") + ")",
-						template: {
-							content: "{LMHI_Min}"
-						}
-					}, {
-						name: "Upper Mezzanine UMHI (Lines - " + t.getView().getModel("multiHeaderConfig").getProperty("/UMHI_Total") + ")",
-						template: {
-							content: "{UMHI_Total}"
-						}
-					}, {
-						name: "Upper Mezzanine UMHI (Percent Complete)",
-						template: {
-							content: "{UMHI_Complete_percent}"
-						}
-					}, {
-						name: "Upper Mezzanine UMHI (Min - " + t.getView().getModel("multiHeaderConfig").getProperty("/UMHI_Min") + ")",
-						template: {
-							content: "{UMHI_Min}"
-						}
-					}, {
-						name: "Dangerous Goods DGHI (Lines - " + t.getView().getModel("multiHeaderConfig").getProperty("/DGHI_Total") + ")",
-						template: {
-							content: "{DGHI_Total}"
-						}
-					}, {
-						name: "Dangerous Goods DGHI (Percent Complete)",
-						template: {
-							content: "{DGHI_Complete_percent}"
-						}
-					}, {
-						name: "Dangerous Goods DGHI (Min - " + t.getView().getModel("multiHeaderConfig").getProperty("/DGHI_Min") + ")",
-						template: {
-							content: "{DGHI_Min}"
-						}
-					}, {
-						name: "TP10 (Lines - " + t.getView().getModel("multiHeaderConfig").getProperty("/TP10_Total") + ")",
-						template: {
-							content: "{TP10_Total}"
-						}
-					}, {
-						name: "TP10 (Percent Complete)",
-						template: {
-							content: "{TP10_Complete_percent}"
-						}
-					}, {
-						name: "TP10 (Min - " + t.getView().getModel("multiHeaderConfig").getProperty("/TP10_Min") + ")",
-						template: {
-							content: "{TP10_Min}"
-						}
-					}, {
-						name: "XXBN (Lines - " + t.getView().getModel("multiHeaderConfig").getProperty("/XXBN_Total") + ")",
-						template: {
-							content: "{XXBN_Total}"
-						}
-					}, {
-						name: "XXBN (Percent Complete)",
-						template: {
-							content: "{XXBN_Complete_percent}"
-						}
-					}, {
-						name: "XXBN (Min - " + t.getView().getModel("multiHeaderConfig").getProperty("/XXBN_Min") + ")",
-						template: {
-							content: "{XXBN_Min}"
-						}
-					}, {
-						name: "SM10 (Lines - " + t.getView().getModel("multiHeaderConfig").getProperty("/SM10_Total") + ")",
-						template: {
-							content: "{SM10_Total}"
-						}
-					}, {
-						name: "SM10 (Percent Complete)",
-						template: {
-							content: "{SM10_Complete_percent}"
-						}
-					}, {
-						name: "SM10 (Min - " + t.getView().getModel("multiHeaderConfig").getProperty("/SM10_Min") + ")",
-						template: {
-							content: "{SM10_Min}"
-						}
-					}, {
-						name: "VS10 (Lines - " + t.getView().getModel("multiHeaderConfig").getProperty("/VS10_Total") + ")",
-						template: {
-							content: "{VS10_Total}"
-						}
-					}, {
-						name: "VS10 (Percent Complete)",
-						template: {
-							content: "{VS10_Complete_percent}"
-						}
-					}, {
-						name: "VS10 (Min - " + t.getView().getModel("multiHeaderConfig").getProperty("/VS10_Min") + ")",
-						template: {
-							content: "{VS10_Min}"
-						}
-					},
-
-					{
-						name: "NOLO (Lines - " + t.getView().getModel("multiHeaderConfig").getProperty("/NOLO_Total") + ")",
-						template: {
-							content: "{NOLO_Total}"
-						}
-					}, {
-						name: "NOLO (Percent Complete)",
-						template: {
-							content: "{NOLO_Complete_percent}"
-						}
-					}, {
-						name: "NOLO (Min - " + t.getView().getModel("multiHeaderConfig").getProperty("/NOLO_Min") + ")",
-						template: {
-							content: "{NOLO_Min}"
-						}
+					name: "TU",
+					template: {
+						content: "{tu_num_ext}"
 					}
-				]
+				}, {
+					name: "Truck Departure Time",
+					template: {
+						content: "{path:'Truck_Departure_Time', type: 'sap.ui.model.type.DateTime', formatOptions: { source: { pattern: 'yyyy-MM-dd HH:mm:ss X' }, pattern: 'yyyy-MM-dd HH:mm:ss' }}"
+					}
+				}, {
+					name: "Route Name",
+					template: {
+						content: "{route_id}"
+					}
+				}, {
+					name: "Route Description",
+					template: {
+						content: "{bezei}"
+					}
+				}, {
+					name: "Target Completion Time",
+					template: {
+						content: "{path:'created_time', type: 'sap.ui.model.type.DateTime', formatOptions: { source: { pattern: 'yyyy-MM-dd HH:mm:ss X' }, pattern: 'yyyy-MM-dd HH:mm:ss' }}"
+					}
+				}, {
+					name: "Cage Bulk CB10 (Lines- " + t.getView().getModel("multiHeaderConfig").getProperty("/CB10_Total") + ")",
+					template: {
+						content: "{CB10_Total}"
+					}
+				}, {
+					name: "Cage Bulk CB10 (Percent Complete)",
+					template: {
+						content: "{path: ' CB10_Complete_percent', type: 'sap.ui.model.type.String'}"
+					}
+				}, {
+					name: "Cage Bulk CB10 (Min - " + t.getView().getModel("multiHeaderConfig").getProperty("/CB10_Min") + ")",
+					template: {
+						content: "{CB10_Min}"
+					}
+				}, {
+					name: "Dangerous Goods DG10 (Line - " + t.getView().getModel("multiHeaderConfig").getProperty("/DG10_Total") + ") ",
+					template: {
+						content: "{DG10_Total}"
+					}
+				}, {
+					name: "Dangerous Goods DG10 (Percent Complete)",
+					template: {
+						content: "{DG10_Complete_percent}"
+					}
+				}, {
+					name: "Dangerous Goods DG10 (Min - " + t.getView().getModel("multiHeaderConfig").getProperty("/DG10_Min") + ")",
+					template: {
+						content: "{DG10_Min}"
+					}
+				}, {
+					name: "Loose Bulk LB10 (Lines - " + t.getView().getModel("multiHeaderConfig").getProperty("/LB10_Total") + ")",
+					template: {
+						content: "{LB10_Total}"
+					}
+				}, {
+					name: "Loose Bulk LB10 (Percent Complete)",
+					template: {
+						content: "{LB10_Complete_percent}"
+					}
+				}, {
+					name: "Loose Bulk LB10 (Min - " + t.getView().getModel("multiHeaderConfig").getProperty("/LB10_Min") + ")",
+					template: {
+						content: "{LB10_Min}"
+					}
+				}, {
+					name: "Lower Mezzanine LM10 (Lines - " + t.getView().getModel("multiHeaderConfig").getProperty("/LM10_Total") + ")",
+					template: {
+						content: "{LM10_Total}"
+					}
+				}, {
+					name: "Lower Mezzanine LM10 (Percent Complete) ",
+					template: {
+						content: "{LM10_Complete_percent}"
+					}
+				}, {
+					name: "Lower Mezzanine LM10 (Min - " + t.getView().getModel("multiHeaderConfig").getProperty("/LM10_Min") + ")",
+					template: {
+						content: "{LM10_Min}"
+					}
+				}, {
+					name: "Reserve Storage RE10 (Lines - " + t.getView().getModel("multiHeaderConfig").getProperty("/RE10_Total") + ")",
+					template: {
+						content: "{RE10_Total}"
+					}
+				}, {
+					name: "Reserve Storage RE10 (Percent Complete)",
+					template: {
+						content: "{RE10_Complete_percent}"
+					}
+				}, {
+					name: "Reserve Storage RE10 (Min - " + t.getView().getModel("multiHeaderConfig").getProperty("/RE10_Min") + ")",
+					template: {
+						content: "{RE10_Min}"
+					}
+				}, {
+					name: "LM Reserve RELM (Lines - " + t.getView().getModel("multiHeaderConfig").getProperty("/RELM_Total") + ")",
+					template: {
+						content: "{RELM_Total}"
+					}
+				}, {
+					name: "LM Reserve RELM (Percent Complete)",
+					template: {
+						content: "{RELM_Complete_percent}"
+					}
+				}, {
+					name: "LM Reserve RELM (Min - " + t.getView().getModel("multiHeaderConfig").getProperty("/RELM_Min") + ")",
+					template: {
+						content: "{RELM_Min}"
+					}
+				}, {
+					name: "UM Reserve REUM (Lines - " + t.getView().getModel("multiHeaderConfig").getProperty("/REUM_Total") + ")",
+					template: {
+						content: "{REUM_Total}"
+					}
+				}, {
+					name: "UM Reserve REUM (Percent Complete)",
+					template: {
+						content: "{REUM_Complete_percent}"
+					}
+				}, {
+					name: "UM Reserve REUM  (Min - " + t.getView().getModel("multiHeaderConfig").getProperty("/REUM_Min") + ")",
+					template: {
+						content: "{REUM_Min}"
+					}
+				}, {
+					name: "Upper Mezzanine UM10 (Lines - " + t.getView().getModel("multiHeaderConfig").getProperty("/UM10_Total") + ")",
+					template: {
+						content: "{UM10_Total}"
+					}
+				}, {
+					name: "Upper Mezzanine UM10 (Percent Complete)",
+					template: {
+						content: "{UM10_Complete_percent}"
+					}
+				}, {
+					name: "Upper Mezzanine UM10 (Min - " + t.getView().getModel("multiHeaderConfig").getProperty("/UM10_Min") + ")",
+					template: {
+						content: "{UM10_Min}"
+					}
+				}, {
+					name: "Fast Rack PDC1 FR10 (Lines - " + t.getView().getModel("multiHeaderConfig").getProperty("/FR10_Total") + ")",
+					template: {
+						content: "{FR10_Total}"
+					}
+				}, {
+					name: "Fast Rack PDC1 FR10 (Percent Complete)",
+					template: {
+						content: "{FR10_Complete_percent}"
+					}
+				}, {
+					name: "Fast Rack PDC1 FR10 (Min - " + t.getView().getModel("multiHeaderConfig").getProperty("/FR10_Min") + ")",
+					template: {
+						content: "{FR10_Min}"
+					}
+				}, {
+					name: "Loose Bulk PDC2 LB20 (Lines - " + t.getView().getModel("multiHeaderConfig").getProperty("/LB20_Total") + ")",
+					template: {
+						content: "{LB20_Total}"
+					}
+				}, {
+					name: "Loose Bulk PDC2 LB20 (Percent Complete)",
+					template: {
+						content: "{LB20_Complete_percent}"
+					}
+				}, {
+					name: "Loose Bulk PDC2 LB20 (Min - " + t.getView().getModel("multiHeaderConfig").getProperty("/LB20_Min") + ")",
+					template: {
+						content: "{LB20_Min}"
+					}
+				}, {
+					name: "Lower Mezzanine LMHI (Lines - " + t.getView().getModel("multiHeaderConfig").getProperty("/LMHI_Total") + ")",
+					template: {
+						content: "{LMHI_Total}"
+					}
+				}, {
+					name: "Lower Mezzanine LMHI (Percent Complete)",
+					template: {
+						content: "{LMHI_Complete_percent}"
+					}
+				}, {
+					name: "Lower Mezzanine LMHI (Min - " + t.getView().getModel("multiHeaderConfig").getProperty("/LMHI_Min") + ")",
+					template: {
+						content: "{LMHI_Min}"
+					}
+				}, {
+					name: "Upper Mezzanine UMHI (Lines - " + t.getView().getModel("multiHeaderConfig").getProperty("/UMHI_Total") + ")",
+					template: {
+						content: "{UMHI_Total}"
+					}
+				}, {
+					name: "Upper Mezzanine UMHI (Percent Complete)",
+					template: {
+						content: "{UMHI_Complete_percent}"
+					}
+				}, {
+					name: "Upper Mezzanine UMHI (Min - " + t.getView().getModel("multiHeaderConfig").getProperty("/UMHI_Min") + ")",
+					template: {
+						content: "{UMHI_Min}"
+					}
+				}, {
+					name: "Dangerous Goods DGHI (Lines - " + t.getView().getModel("multiHeaderConfig").getProperty("/DGHI_Total") + ")",
+					template: {
+						content: "{DGHI_Total}"
+					}
+				}, {
+					name: "Dangerous Goods DGHI (Percent Complete)",
+					template: {
+						content: "{DGHI_Complete_percent}"
+					}
+				}, {
+					name: "Dangerous Goods DGHI (Min - " + t.getView().getModel("multiHeaderConfig").getProperty("/DGHI_Min") + ")",
+					template: {
+						content: "{DGHI_Min}"
+					}
+				}, {
+					name: "TP10 (Lines - " + t.getView().getModel("multiHeaderConfig").getProperty("/TP10_Total") + ")",
+					template: {
+						content: "{TP10_Total}"
+					}
+				}, {
+					name: "TP10 (Percent Complete)",
+					template: {
+						content: "{TP10_Complete_percent}"
+					}
+				}, {
+					name: "TP10 (Min - " + t.getView().getModel("multiHeaderConfig").getProperty("/TP10_Min") + ")",
+					template: {
+						content: "{TP10_Min}"
+					}
+				}, {
+					name: "XXBN (Lines - " + t.getView().getModel("multiHeaderConfig").getProperty("/XXBN_Total") + ")",
+					template: {
+						content: "{XXBN_Total}"
+					}
+				}, {
+					name: "XXBN (Percent Complete)",
+					template: {
+						content: "{XXBN_Complete_percent}"
+					}
+				}, {
+					name: "XXBN (Min - " + t.getView().getModel("multiHeaderConfig").getProperty("/XXBN_Min") + ")",
+					template: {
+						content: "{XXBN_Min}"
+					}
+				}, {
+					name: "SM10 (Lines - " + t.getView().getModel("multiHeaderConfig").getProperty("/SM10_Total") + ")",
+					template: {
+						content: "{SM10_Total}"
+					}
+				}, {
+					name: "SM10 (Percent Complete)",
+					template: {
+						content: "{SM10_Complete_percent}"
+					}
+				}, {
+					name: "SM10 (Min - " + t.getView().getModel("multiHeaderConfig").getProperty("/SM10_Min") + ")",
+					template: {
+						content: "{SM10_Min}"
+					}
+				}, {
+					name: "VS10 (Lines - " + t.getView().getModel("multiHeaderConfig").getProperty("/VS10_Total") + ")",
+					template: {
+						content: "{VS10_Total}"
+					}
+				}, {
+					name: "VS10 (Percent Complete)",
+					template: {
+						content: "{VS10_Complete_percent}"
+					}
+				}, {
+					name: "VS10 (Min - " + t.getView().getModel("multiHeaderConfig").getProperty("/VS10_Min") + ")",
+					template: {
+						content: "{VS10_Min}"
+					}
+				}, {
+					name: "NOLO (Lines - " + t.getView().getModel("multiHeaderConfig").getProperty("/NOLO_Total") + ")",
+					template: {
+						content: "{NOLO_Total}"
+					}
+				}, {
+					name: "NOLO (Percent Complete)",
+					template: {
+						content: "{NOLO_Complete_percent}"
+					}
+				}, {
+					name: "NOLO (Min - " + t.getView().getModel("multiHeaderConfig").getProperty("/NOLO_Min") + ")",
+					template: {
+						content: "{NOLO_Min}"
+					}
+				}]
 			});
 			o.saveFile().always(function () {
 				this.destroy()

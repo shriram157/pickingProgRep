@@ -50,7 +50,7 @@
 								<fb:control>
 									<!--<DateRangeSelection id="idCompletionTime" valueFormat="yyyy-MM-dd" dateValue="{path:'DateModel01>/dateValueDRS2'}"-->
 									<!--	secondDateValue="{path:'DateModel01>/secondDateValueDRS2'}" minDate="" maxDate="" change="onChangeDepDate"/>-->
-									<DatePicker id="idCompletionTime" valueFormat="yyyy-MM-dd" required="true" dateValue="{path:'DateModel01>/secondDateValueDRS2'}"/>
+									<DatePicker id="idCompletionTime" valueFormat="yyyy-MM-dd" dateValue="{path:'DateModel01>/secondDateValueDRS2'}"/>
 								</fb:control>
 							</fb:FilterItem>
 							<!--<fb:FilterItem name="A" label="Target Completion Time">-->
