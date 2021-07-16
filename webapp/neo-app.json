@@ -1,0 +1,68 @@
+{
+  "welcomeFile": "/index.html",
+  "routes": [
+    {
+      "path": "/resources",
+      "target": {
+        "type": "service",
+        "name": "sapui5",
+        "entryPath": "/resources",
+        "version": "1.52.27"
+      },
+      "description": "SAPUI5 Resources"
+    },
+    {
+      "path": "/test-resources",
+      "target": {
+        "type": "service",
+        "name": "sapui5",
+        "entryPath": "/test-resources",
+        "version": "1.52.27"
+      },
+      "description": "SAPUI5 Test Resources"
+    },
+    {
+      "path": "/DG1_200",
+      "target": {
+        "type": "destination",
+        "name": "DG1_200"
+      },
+      "description": "DG1_200"
+    },
+    {
+      "path": "/sap/opu/odata",
+      "target": {
+        "type": "destination",
+        "name": "DG1_100",
+        "entryPath": "/sap/opu/odata"
+      },
+      "description": "DG1 100"
+    },
+    {
+      "path": "/DG2_100",
+      "target": {
+        "type": "destination",
+        "name": "DG2_100"
+      },
+      "description": "DG2 100"
+    },
+    {
+      "path": "/DG1_100",
+      "target": {
+        "type": "destination",
+        "name": "DG1_100"
+      },
+      "description": "DG1 100"
+    },
+    {
+      "path": "/sap/bc/ui5_ui5",
+      "target": {
+        "type": "destination",
+        "name": "DG1_100",
+        "entryPath": "/sap/bc/ui5_ui5"
+      },
+      "description": "DG1 100"
+    }
+  ],
+  "sendWelcomeFileRedirect": true
+}

@@ -1,0 +1,13 @@
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+	xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+	<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
+		Uri="./IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='ZODATA')/$value"><edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/></edmx:Reference>
+	<edmx:DataServices m:DataServiceVersion="2.0">
+		<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="ZEWM_CDS_WHNO_CDS" xml:lang="en" sap:schema-version="1">
+			<EntityType Name="ZEWM_CDS_WHNOType" sap:label="Where house numbers view" sap:content-version="1">
+				<Key><PropertyRef Name="spras"/><PropertyRef Name="lgnum"/></Key><Property Name="spras" Type="Edm.String" Nullable="false" MaxLength="2" sap:label="Language Key"/><Property Name="lgnum" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Warehouse Number"
+					sap:quickinfo="Warehouse Number/Warehouse Complex"/><Property Name="lnumt" Type="Edm.String" MaxLength="40" sap:label="Description"/></EntityType>
+			<EntityContainer Name="ZEWM_CDS_WHNO_CDS_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx"><EntitySet Name="ZEWM_CDS_WHNO" EntityType="ZEWM_CDS_WHNO_CDS.ZEWM_CDS_WHNOType" sap:creatable="false" sap:updatable="false"
+				sap:deletable="false" sap:content-version="1"/></EntityContainer><atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="./sap/ZEWM_CDS_WHNO_CDS/$metadata"/><atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="./sap/ZEWM_CDS_WHNO_CDS/$metadata"/></Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

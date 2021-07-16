@@ -1,0 +1,267 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="zpickr.controller.Details"
+	xmlns:layout="sap.ui.layout" xmlns:table="sap.ui.table" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page title="{i18n>title}" navButtonPress="onNavBack" showNavButton="true">
+		<content>
+			<ObjectHeader id="idObjHeader" title="" backgroundDesign="Solid"></ObjectHeader>
+			<table:Table id="idRCPITMTable" selectionMode="None" rows="{LocalDataModel>/ItemModel}" visibleRowCount="20">
+				<table:columns>
+					<table:Column width="5rem">
+						<Label text="Warehouse Order #" textAlign="Center" width="100%"/>
+						<table:template>
+							<Text text="{LocalDataModel>who}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="5rem">
+						<Label text="Processor ID" textAlign="Center" width="100%"/>
+						<table:template>
+							<Text text="{LocalDataModel>processor}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="5rem">
+						<table:multiLabels>
+							<Label text="CB10-Cageable Parts"/>
+							<Label text="# Open Lines" textAlign="Center" width="100%"/>
+						</table:multiLabels>
+						<table:template>
+							<Text text="{LocalDataModel>CB10_open}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="5rem">
+						<table:multiLabels>
+							<Label text="DG10-DG-HV PARTS"/>
+							<Label text="# Open Lines" textAlign="Center" width="100%"/>
+						</table:multiLabels>
+						<table:template>
+							<Text text="{LocalDataModel>DG10_open}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="5rem">
+						<table:multiLabels>
+							<Label text="Loose Bulk LB10"/>
+							<Label text="# Open Lines" textAlign="Center" width="100%"/>
+						</table:multiLabels>
+						<table:template>
+							<Text text="{LocalDataModel>LB10_open}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="5rem" visible="{=${LocalDataModel>/oWarehouseNum} ==='7330' ? false : true }">
+						<table:multiLabels>
+							<Label text="Mezzanine LM10"/>
+							<Label text="# Open Lines" textAlign="Center" width="100%"/>
+						</table:multiLabels>
+						<table:template>
+							<Text text="{LocalDataModel>LM10_open}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="5rem" visible="{=${LocalDataModel>/oWarehouseNum} ==='7330' ? false : true }">
+						<table:multiLabels>
+							<Label text="Reserve Storage RE10"/>
+							<Label text="# Open Lines" textAlign="Center" width="100%"/>
+						</table:multiLabels>
+						<table:template>
+							<Text text="{LocalDataModel>RE10_open}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="5rem" visible="{=${LocalDataModel>/oWarehouseNum} ==='7330' ? false : true }">
+						<table:multiLabels>
+							<Label text="LM Reserve RELM"/>
+							<Label text="# Open Lines" textAlign="Center" width="100%"/>
+						</table:multiLabels>
+						<table:template>
+							<Text text="{LocalDataModel>RELM_open}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="5rem" visible="{=${LocalDataModel>/oWarehouseNum} ==='7330' ? false : true }">
+						<table:multiLabels>
+							<Label text="UM Reserve REUM"/>
+							<Label text="# Open Lines" textAlign="Center" width="100%"/>
+						</table:multiLabels>
+						<table:template>
+							<Text text="{LocalDataModel>REUM_open}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="5rem" visible="{=${LocalDataModel>/oWarehouseNum} ==='7330' ? false : true }">
+						<table:multiLabels>
+							<Label text="Upper Mezzanine UM10"/>
+							<Label text="# Open Lines" textAlign="Center" width="100%"/>
+						</table:multiLabels>
+						<table:template>
+							<Text text="{LocalDataModel>UM10_open}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="5rem" visible="{=${LocalDataModel>/oWarehouseNum} ==='7330' ? false : true }">
+						<table:multiLabels>
+							<Label text="Fast Rack PDC1 FR10"/>
+							<Label text="# Open Lines" textAlign="Center" width="100%"/>
+						</table:multiLabels>
+						<table:template>
+							<Text text="{LocalDataModel>FR10_open}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="5rem" visible="{=${LocalDataModel>/oWarehouseNum} ==='7330' ? false : true }">
+						<table:multiLabels>
+							<Label text="PDC2 LB20"/>
+							<Label text="# Open Lines" textAlign="Center" width="100%"/>
+						</table:multiLabels>
+						<table:template>
+							<Text text="{LocalDataModel>LB20_open}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="5rem">
+						<table:multiLabels>
+							<Label text="NOLO- No Location"/>
+							<Label text="# Open Lines" textAlign="Center" width="100%"/>
+						</table:multiLabels>
+						<table:template>
+							<Text text="{LocalDataModel>NOLO_open}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="5rem" visible="{=${LocalDataModel>/oWarehouseNum} ==='7110' ? false : true }">
+						<table:multiLabels>
+							<Label text="TP10 - Two Persons Pick"/>
+							<Label text="# Open Lines" textAlign="Center" width="100%"/>
+						</table:multiLabels>
+						<table:template>
+							<Text text="{LocalDataModel>TP10_open}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="5rem"  visible="{=${LocalDataModel>/oWarehouseNum} ==='7110' ? false : true }">
+						<table:multiLabels>
+							<Label text="XXBN - Bin Investigation"/>
+							<Label text="# Open Lines" textAlign="Center" width="100%"/>
+						</table:multiLabels>
+						<table:template>
+							<Text text="{LocalDataModel>XXBN_open}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="5rem" visible="{=${LocalDataModel>/oWarehouseNum} ==='7110' ? false : true }">
+						<table:multiLabels>
+							<Label text="SM10 - Small Parts"/>
+							<Label text="# Open Lines" textAlign="Center" width="100%"/>
+						</table:multiLabels>
+						<table:template>
+							<Text text="{LocalDataModel>SM10_open}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="5rem" visible="{=${LocalDataModel>/oWarehouseNum} ==='7110' ? false : true }">
+						<table:multiLabels>
+							<Label text="VS10 - Very Small Parts"/>
+							<Label text="# Open Lines" textAlign="Center" width="100%"/>
+						</table:multiLabels>
+						<table:template>
+							<Text text="{LocalDataModel>VS10_open}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="5rem" visible="{=${LocalDataModel>/oWarehouseNum} ==='7330' ? true : false }">
+						<table:multiLabels>
+							<Label text="SPHI-Service Parts"/>
+							<Label text="# Open Lines" textAlign="Center" width="100%"/>
+						</table:multiLabels>
+						<table:template>
+							<Text text="{LocalDataModel>SPHI_open}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="5rem" visible="{=${LocalDataModel>/oWarehouseNum} ==='7330' ? false : true }">
+						<table:multiLabels>
+							<Label text="Overflow Area -REDG"/>
+							<Label text="# Open Lines" textAlign="Center" width="100%"/>
+						</table:multiLabels>
+						<table:template>
+							<Text text="{LocalDataModel>REDG_open}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="5rem" visible="{=${LocalDataModel>/oWarehouseNum} ==='7330' ? true : false }">
+						<table:multiLabels>
+							<Label text="FP10-Floor Pick Parts"/>
+							<Label text="# Open Lines" textAlign="Center" width="100%"/>
+						</table:multiLabels>
+						<table:template>
+							<Text text="{LocalDataModel>FP10_open}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="5rem" visible="{=${LocalDataModel>/oWarehouseNum} ==='7330' ? true : false }">
+						<table:multiLabels>
+							<Label text="MP10-Medium Parts"/>
+							<Label text="# Open Lines" textAlign="Center" width="100%"/>
+						</table:multiLabels>
+						<table:template>
+							<Text text="{LocalDataModel>MP10_open}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="5rem" visible="{=${LocalDataModel>/oWarehouseNum} ==='7330' ? true : false }">
+						<table:multiLabels>
+							<Label text="RS10-Rack Storage Area"/>
+							<Label text="# Open Lines" textAlign="Center" width="100%"/>
+						</table:multiLabels>
+						<table:template>
+							<Text text="{LocalDataModel>RS10_open}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="5rem">
+						<table:multiLabels>
+							<Label text="BC10-Bumper Cover"/>
+							<Label text="# Open Lines" textAlign="Center" width="100%"/>
+						</table:multiLabels>
+						<table:template>
+							<Text text="{LocalDataModel>BC10_open}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="5rem" visible="{=${LocalDataModel>/oWarehouseNum} ==='7330' ? true : false }">
+						<table:multiLabels>
+							<Label text="SP10-Service Parts"/>
+							<Label text="# Open Lines" textAlign="Center" width="100%"/>
+						</table:multiLabels>
+						<table:template>
+							<Text text="{LocalDataModel>SP10_open}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="5rem" visible="{=${LocalDataModel>/oWarehouseNum} ==='7330' ? true : false }">
+						<table:multiLabels>
+							<Label text="SF10-Services Fixed Area"/>
+							<Label text="# Open Lines" textAlign="Center" width="100%"/>
+						</table:multiLabels>
+						<table:template>
+							<Text text="{LocalDataModel>SF10_open}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="5rem" visible="{=${LocalDataModel>/oWarehouseNum} ==='7330' ? true : false }">
+						<table:multiLabels>
+							<Label text="SB10-Slow Bulk"/>
+							<Label text="# Open Lines" textAlign="Center" width="100%"/>
+						</table:multiLabels>
+						<table:template>
+							<Text text="{LocalDataModel>SB10_open}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="5rem" visible="{=${LocalDataModel>/oWarehouseNum} ==='7330' ? true : false }">
+						<table:multiLabels>
+							<Label text="SM10-Small Parts"/>
+							<Label text="# Open Lines" textAlign="Center" width="100%"/>
+						</table:multiLabels>
+						<table:template>
+							<Text text="{LocalDataModel>SM10_open}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="5rem" visible="{=${LocalDataModel>/oWarehouseNum} ==='7330' ? true : false }">
+						<table:multiLabels>
+							<Label text="VS10-V Small Parts"/>
+							<Label text="# Open Lines" textAlign="Center" width="100%"/>
+						</table:multiLabels>
+						<table:template>
+							<Text text="{LocalDataModel>VS10_open}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="5rem" visible="{=${LocalDataModel>/oWarehouseNum} ==='7330' ? true : false }">
+						<table:multiLabels>
+							<Label text="WP10-Walkable Bulk Parts"/>
+							<Label text="# Open Lines" textAlign="Center" width="100%"/>
+						</table:multiLabels>
+						<table:template>
+							<Text text="{LocalDataModel>WP10_open}"/>
+						</table:template>
+					</table:Column>
+				</table:columns>
+			</table:Table>
+		</content>
+	</Page>
+</mvc:View>

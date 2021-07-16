@@ -1,0 +1,5 @@
+.sapUiTableTd{position:relative}.sapUiTableTd .sapUiTableCell{padding:0!important}.sapUiTableTd .sapUiTableCell .sapMText{display:block;padding:.5rem}.clDanRed{background-color:tomato}.clDanGreen{background-color:#7CFC00}.clDanYellow{background-color:#FF0}.clDanRed[data-line=f0],.clDanYellow[data-line=f0]{background-color:#fff}
+
+.sapUiTableHeaderDataCell>.sapUiTableCellInner {padding:0.0rem !important;}
+.sapUiTableCell .sapMLabel, .sapUiTableColCell>.sapMLabel{font-size: 0.5rem !important; white-space: break-spaces !important;}
+.sapUiTableCell .sapMText{font-size: 0.5rem !important;}

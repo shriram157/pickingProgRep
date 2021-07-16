@@ -1,0 +1,1 @@
+function initModel(){var a="/DG1_200/sap/opu/odata/sap/ZEWM_VARIANT_SRV/";var e=new sap.ui.model.odata.ODataModel(a,true);sap.ui.getCore().setModel(e)}

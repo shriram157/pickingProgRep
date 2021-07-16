@@ -1,0 +1,176 @@
+{
+	"_version": "1.8.0",
+	"sap.app": {
+		"id": "zpickr",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"sourceTemplate": {
+			"id": "servicecatalog.connectivityComponentForManifest",
+			"version": "0.0.0"
+		},
+		"dataSources": {
+			"ZEWM_CDS_PICK_PROG_CDS": {
+				"uri": "/sap/opu/odata/sap/ZEWM_CDS_PICK_PROG_CDS/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0",
+					"localUri": "localService/metadata.xml"
+				}
+			},
+			"ZEWM_CDS_WHNO_CDS": {
+				"uri": "/sap/opu/odata/sap/ZEWM_CDS_WHNO_CDS/",
+				"type": "OData",
+				"settings": {
+					"localUri": "localService/ZEWM_CDS_WHNO_CDS/metadata.xml"
+				}
+			},
+			"ZEWM_VARIANT_SRV": {
+				"uri": "/sap/opu/odata/sap/ZEWM_VARIANT_SRV/",
+				"type": "OData",
+				"settings": {
+					"localUri": "localService/ZEWM_VARIANT_SRV/metadata.xml"
+				}
+			}
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		},
+		"supportedThemes": [
+			"sap_hcb",
+			"sap_belize"
+		]
+	},
+	"sap.ui5": {
+		"rootView": {
+			"viewName": "zpickr.view.App",
+			"type": "XML"
+		},
+		"dependencies": {
+			"minUI5Version": "1.30",
+			"libs": {
+				"sap.m": {},
+				"sap.ui.comp": {},
+				"sap.ui.core": {},
+				"sap.ui.layout": {},
+				"sap.ui.table": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "zpickr.i18n.i18n"
+				}
+			},
+			"": {
+				"uri": "/sap/opu/odata/sap/ZEWM_CDS_PICK_PROG_CDS/",
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneWay",
+					"defaultCountMode": "Request"
+				},
+				"dataSource": "ZEWM_CDS_PICK_PROG_CDS",
+				"preload": true
+			},
+			"wareHouseNo": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneWay",
+					"defaultCountMode": "Request"
+				},
+				"dataSource": "ZEWM_CDS_WHNO_CDS",
+				"preload": true
+			},
+			"ZEWM_VARIANT_SRV": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneWay",
+					"defaultCountMode": "Request"
+				},
+				"dataSource": "ZEWM_VARIANT_SRV",
+				"preload": true
+			}
+		},
+		"resources": {
+			"js": [
+				{
+					"uri": "util/Formatter.js"
+				},
+				{
+					"uri": "util/moment.js"
+				}
+			],
+			"css": [
+				{
+					"uri": "css/style.css"
+				}
+			]
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"async": true,
+				"viewPath": "zpickr.view",
+				"controlAggregation": "pages",
+				"controlId": "idAppControl",
+				"clearControlAggregation": false
+			},
+			"routes": [
+				{
+					"name": "Home",
+					"pattern": "",
+					"target": [
+						"Home"
+					]
+				},
+				{
+					"name": "Details",
+					"pattern": "item/{yard}/{route_id}/{tu_num_ext}",
+					"target": [
+						"Details"
+					]
+				}
+			],
+			"targets": {
+				"Home": {
+					"viewType": "XML",
+					"viewName": "Home"
+				},
+				"Details": {
+					"viewType": "XML",
+					"viewName": "Details"
+				}
+			}
+		}
+	},
+	"sap.platform.abap": {
+		"uri": "/sap/bc/ui5_ui5/sap/zpickingreport/webapp",
+		"_version": "1.1.0"
+	}
+}
